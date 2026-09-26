@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PrettyCode: A Beginner���s Guide</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">PrettyCode: A Beginner���s Guide</h1>
+</header>
+<h1 id="prettycode-a-beginners-guide">PrettyCode: A Beginner’s
+Guide</h1>
+<p><strong>For:</strong> Someone who has never used PrettyCode and may
+be new to Python, terminals, AI coding assistants, and software
+projects.<br />
+<strong>Describes:</strong> PrettyCode as distributed in this repository
+(Windows and macOS).<br />
+<strong>Start here:</strong> Read Sections 1–5, then choose one of the
+three interfaces in Section 6: Codex Skill, standalone CLI, or MCP
+server. You can combine the Skill with MCP if desired.</p>
+<hr />
+<h2 id="what-is-prettycode">1. What is PrettyCode?</h2>
+<p>PrettyCode is a small tool for <strong>polishing existing R and
+Python scripts</strong>. Its aim is to make code easier for a person to
+read—principally by improving comments, spacing, and
+layout—<strong>without changing what the program does</strong>.</p>
+<p>Imagine an untidy script that already produces the right results.
+PrettyCode can propose a more readable version, show you exactly what
+changed, and (with your approval) save it. PrettyCode is
+<strong>not</strong> designed to debug the script, modernize its
+algorithms, rename variables, add features, or automatically make risky
+refactors.</p>
+<p>The project offers <strong>three interfaces</strong> (three ways to
+access closely related functionality):</p>
+<ol type="1">
+<li><strong>Codex Skill:</strong> Supplies Codex with PrettyCode editing
+instructions for R and Python. Codex can use its normal file tools or,
+if configured, PrettyCode MCP tools. No Python package or MCP
+installation is required to use the Skill alone.</li>
+<li><strong>Standalone command-line interface (CLI):</strong> Lets you
+run commands in a terminal. Its <code>polish</code> command asks an
+OpenAI model to propose edits to one file and makes a potentially
+<strong>paid API request</strong>.</li>
+<li><strong>MCP server:</strong> Gives compatible AI clients tools to
+list, read, validate, preview, and apply code changes. The client
+supplies the AI model and proposes edits: the server <strong>does not
+itself call an LLM</strong> or incur model API charges. It does not
+require the Codex Skill.</li>
+</ol>
+<p><strong>How they work together:</strong> The Skill gives
+<strong>instructions</strong>; MCP gives <strong>tools</strong>. Codex
+may use both simultaneously: the Skill guides an edit, and MCP can
+inspect and apply the proposed code. Other MCP clients can use the tools
+without the Codex Skill, but MCP does not automatically provide them
+with the Skill’s editing instructions. The CLI is a separate terminal
+workflow. All three aim to <strong>improve readability while preserving
+existing computational behavior</strong>; the CLI and MCP server share
+underlying file-validation functions.</p>
+<h2 id="important-terms-in-plain-english">2. Important terms, in plain
+English</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Meaning in this project</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Script</strong></td>
+<td>A text file containing code. PrettyCode accepts Python
+(<code>.py</code>) and R (<code>.R</code> or <code>.r</code>)
+scripts.</td>
+</tr>
+<tr class="even">
+<td><strong>Working directory / project root</strong></td>
+<td>The folder PrettyCode is allowed to work inside. Usually it is the
+folder you have navigated to in your terminal. Files outside this folder
+cannot be edited through PrettyCode’s guarded operations.</td>
+</tr>
+<tr class="odd">
+<td><strong>Terminal</strong></td>
+<td>A window in which you type commands. On Windows, Git Bash is one
+option; PowerShell is another.</td>
+</tr>
+<tr class="even">
+<td><strong>CLI</strong></td>
+<td><em>Command-line interface</em>: commands such as
+<code>prettycode list</code> and <code>prettycode check</code>.</td>
+</tr>
+<tr class="odd">
+<td><strong>AI model / LLM</strong></td>
+<td>A large language model that can suggest wording and formatting
+edits. PrettyCode does not assume model-generated edits are
+correct.</td>
+</tr>
+<tr class="even">
+<td><strong>API / API key</strong></td>
+<td>An interface used by one program to contact a service, and a secret
+credential granting access. The standalone <code>polish</code> command
+uses the OpenAI API. Keep your API key secret.</td>
+</tr>
+<tr class="odd">
+<td><strong>Protocol</strong></td>
+<td>Written rules telling the editor which changes are acceptable for a
+particular language. The project includes separate protocols for R and
+Python.</td>
+</tr>
+<tr class="even">
+<td><strong>Codex Skill</strong></td>
+<td>A local instruction document that tells Codex how to perform
+PrettyCode’s task. It is <em>not</em> another Python program or a
+separate model.</td>
+</tr>
+<tr class="odd">
+<td><strong>AI client</strong></td>
+<td>An application such as Codex or Claude Desktop that provides an
+AI-powered chat or coding interface and can connect to MCP tools when
+configured.</td>
+</tr>
+<tr class="even">
+<td><strong>MCP</strong></td>
+<td><em>Model Context Protocol</em>: a way for compatible AI
+applications to use tools exposed by other programs. Here those tools
+operate on files in one authorized directory.</td>
+</tr>
+<tr class="odd">
+<td><strong>Dependency</strong></td>
+<td>Another package or program required for a feature. The OpenAI Python
+package, the MCP package, and R are optional according to which features
+you need.</td>
+</tr>
+<tr class="even">
+<td><strong>Virtual environment (<code>.venv</code>)</strong></td>
+<td>A private Python package installation for this project, separate
+from other Python projects.</td>
+</tr>
+<tr class="odd">
+<td><strong>Syntax check</strong></td>
+<td>A check that a file can be parsed as valid Python or R. It does
+<em>not</em> establish that it runs correctly or produces the same
+answers.</td>
+</tr>
+<tr class="even">
+<td><strong>Token guard</strong></td>
+<td>An additional Python safeguard comparing meaningful Python tokens
+before and after editing. It allows comments/formatting changes but
+rejects changes to ordinary code tokens. It is conservative, not a
+mathematical proof of equivalence.</td>
+</tr>
+<tr class="odd">
+<td><strong>Diff</strong></td>
+<td>A comparison showing removed lines (typically <code>-</code>) and
+added lines (typically <code>+</code>). Review it before accepting
+edits.</td>
+</tr>
+<tr class="even">
+<td><strong>Proposal / preview</strong></td>
+<td>A suggested change you can inspect without touching your original
+file. In the CLI, previews are saved locally so you can apply them
+without paying for the same suggestion twice.</td>
+</tr>
+<tr class="odd">
+<td><strong>Test</strong></td>
+<td>A small automated check that verifies a particular behavior of
+PrettyCode itself, not necessarily of a script you ask PrettyCode to
+polish.</td>
+</tr>
+<tr class="even">
+<td><strong>Git</strong></td>
+<td>A version-control system that records file changes and lets you
+recover earlier versions. Strongly recommended before applying proposed
+edits.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-the-working-directory-is-organized">3. How the working
+directory is organized</h2>
+<p>Open the PrettyCode repository folder (for example,
+<code>prettycode/</code>). Its <code>prettycode/</code> subfolder
+contains the Python application; <code>.agents/skills/prettycode/</code>
+contains the independently installable Codex Skill.</p>
+<pre class="text"><code>prettycode/                            Project root
+|-- README.md                          Quick start
+|-- PRETTYCODE_BEGINNERS_GUIDE.md       This guide
+|-- pyproject.toml                     Python package and dependencies
+|-- .gitignore                         Local/generated files Git ignores
+|-- examples/                          Two included starter scripts
+|   |-- example.py                     Intentionally untidy valid Python
+|   `-- example.R                      Intentionally untidy valid R
+|-- prettycode/                        Python application
+|   |-- __init__.py
+|   |-- cli.py                         list, check, polish, apply
+|   |-- core/__init__.py               Validation and safe file writing
+|   `-- mcp/__init__.py                Optional MCP server
+|-- .agents/skills/prettycode/         Standalone, portable Codex Skill
+|   |-- SKILL.md                       Skill behavior
+|   `-- references/                    ONE authoritative protocol per language
+|       |-- pretty-python.md
+|       `-- pretty-r.md
+`-- tests/test_core.py                  Local checks</code></pre>
+<p><strong>Why are some folders named <code>prettycode</code>?</strong>
+The <strong>outer folder</strong> (<code>prettycode</code>) is the
+complete project, whereas the <strong>inner</strong>
+<code>prettycode/</code> is its importable Python application. A Codex
+Skill also happens to have a <code>prettycode/</code> folder under
+<code>.agents/skills/</code>; that folder contains instructions, not the
+application.</p>
+<p><strong>What are the leading dots?</strong> On many systems, folders
+beginning with a dot, such as <code>.agents/</code>,
+<code>.venv/</code>, and <code>.prettycode-proposals/</code>, are
+treated as hidden. Enable hidden-file display in your file explorer if
+you cannot see them.</p>
+<h3 id="files-and-folders-that-appear-later">Files and folders that
+appear later</h3>
+<p>These are generated locally after installation or use, rather than
+maintained project source files:</p>
+<ul>
+<li><code>.venv/</code>: your locally created Python virtual
+environment. Do not edit it manually or commit it to Git.</li>
+<li><code>.prettycode-proposals/</code>: locally saved CLI suggestions.
+It appears after a successful <code>prettycode polish</code> preview.
+Its JSON files include <strong>the original and proposed
+source</strong>, so treat them as potentially sensitive.
+<code>prettycode apply</code> deletes the corresponding proposal after
+successfully applying it.</li>
+<li><code>.pytest_cache/</code>, <code>__pycache__/</code>, or
+<code>*.egg-info/</code>: routine Python-generated files or folders,
+usually safe to ignore.</li>
+<li>Your own <code>scripts/</code> or other working folders: optional;
+you create them. They are not required by PrettyCode.</li>
+</ul>
+<p><strong>Included examples:</strong> <code>examples/example.py</code>
+and <code>examples/example.R</code> are small, deliberately untidy
+scripts. Both print <code>2.0</code>. They are safe starting points for
+practicing syntax checks and read-only Codex Skill / MCP workflows.</p>
+<p><strong>Important:</strong> <code>prettycode list</code> searches for
+R/Python files under the current project root. This includes
+PrettyCode’s <em>own</em> application and test files if you run it from
+this repository; it does not magically find scripts in unrelated RStudio
+projects. To edit another project, see the <code>--root</code> example
+below.</p>
+<h2 id="a-mental-model-what-happens-to-one-script">4. A mental model:
+what happens to one script?</h2>
+<p>Here is the recommended <strong>CLI</strong> path:</p>
+<pre class="text"><code>Your existing script
+        |
+        v
+[1] Validate original syntax (no code execution)
+        |
+        v
+[2] Read the appropriate local R/Python editing protocol
+        |
+        v
+[3] Send that protocol + one script to the specified OpenAI model
+        |    (ONE new, potentially paid API request; no automatic retry)
+        v
+[4] Receive proposed complete script
+        |
+        v
+[5] Validate proposed syntax; run the extra token guard for Python
+        |
+        +---- fails? --&gt; Reject; do not write changes
+        |
+        v
+[6] Print a line-by-line diff and save a local proposal
+        |    (your original file is still unchanged)
+        v
+[7] YOU read the diff and decide whether to apply
+        |
+        v
+[8] Apply the saved proposal locally (no additional API request)
+        |    only if the source file has not changed meanwhile
+        v
+Your updated script -- still review/test its real-world behavior</code></pre>
+<p>For R scripts, both the original and the proposed text must pass the
+R syntax parser, but PrettyCode does <strong>not</strong> have an R
+equivalent of its Python token guard. R changes consequently need
+particularly careful human inspection.</p>
+<p>A proposal that fails a check, or makes no changes, will not be saved
+as an acceptable preview. A model response can still be awkward or
+undesirable even when it passes the checks.</p>
+<h2 id="first-time-setup-windows-and-macos">5. First-time setup (Windows
+and macOS)</h2>
+<p>You need <strong>Python 3.11 or newer</strong>. The Codex Skill needs
+<strong>no Python installation</strong> when used alone; the following
+setup is for the standalone CLI or optional MCP server.</p>
+<h3 id="step-a-open-the-repository-folder">Step A: Open the repository
+folder</h3>
+<p>Open Git Bash or PowerShell on Windows, or Terminal on macOS.
+Navigate to your PrettyCode repository (replace the example path with
+your own):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/GitHub/prettycode</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code></pre></div>
+<p>Confirm that <code>README.md</code>, <code>pyproject.toml</code>,
+<code>prettycode/</code>, and <code>.agents/skills/prettycode/</code>
+exist. On macOS, use <code>python3</code> instead of <code>python</code>
+in the following commands if that is how Python is installed.</p>
+<h3 id="step-b-create-and-activate-a-python-virtual-environment">Step B:
+Create and activate a Python virtual environment</h3>
+<p>All operating systems create the environment with:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv</span></code></pre></div>
+<p>Then activate it using the command for your terminal:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Terminal</th>
+<th>Activation command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Windows Git Bash</td>
+<td><code>source .venv/Scripts/activate</code></td>
+</tr>
+<tr class="even">
+<td>Windows PowerShell</td>
+<td><code>.\.venv\Scripts\Activate.ps1</code></td>
+</tr>
+<tr class="odd">
+<td>macOS Terminal</td>
+<td><code>source .venv/bin/activate</code></td>
+</tr>
+</tbody>
+</table>
+<p>PowerShell may require an adjustment to its script-execution policy.
+After activation you should normally see <code>(.venv)</code> in your
+prompt.</p>
+<h3 id="step-c-install-only-the-features-you-plan-to-use">Step C:
+Install only the features you plan to use</h3>
+<p>To install the basic CLI for offline <code>list</code> and
+<code>check</code>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-e</span> .</span></code></pre></div>
+<p>The following are <strong>optional</strong> and can be installed
+later: <code>python -m pip install -e '.[agent]'</code> for the
+OpenAI-powered CLI, <code>python -m pip install -e '.[mcp]'</code> for
+the MCP server, or <code>python -m pip install -e '.[test]'</code> to
+run included tests. The <code>-e</code> means editing PrettyCode’s
+source files in this checkout updates the installed development
+version.</p>
+<p>To check R code, also install R separately and ensure
+<code>Rscript</code> is on your system’s <code>PATH</code> (the
+directories searched for commands). A separate R package or R
+configuration file is not required.</p>
+<h3 id="step-d-try-two-free-commands">Step D: Try two free commands</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode</span> list</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode</span> check examples/example.py</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode</span> check examples/example.R  <span class="co"># requires Rscript</span></span></code></pre></div>
+<p>Neither command invokes an AI model, changes source files, or runs
+the script being checked. If you installed the optional test
+dependencies, you can also run <code>python -m pytest -q</code> to check
+PrettyCode’s local safeguards. Both example scripts print
+<code>2.0</code> if <em>you</em> choose to run them; syntax validation
+itself never runs scripts.</p>
+<h2 id="choose-one-way-to-use-prettycode">6. Choose ONE way to use
+PrettyCode</h2>
+<h3
+id="route-a-the-standalone-cli-simplest-when-working-without-codex">Route
+A — The standalone CLI (simplest when working without Codex)</h3>
+<p>The CLI’s four main commands are:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 28%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>What it does</th>
+<th style="text-align: right;">New model request?</th>
+<th style="text-align: right;">Changes source?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>prettycode list</code></td>
+<td>Lists supported source files under the root.</td>
+<td style="text-align: right;">No</td>
+<td style="text-align: right;">No</td>
+</tr>
+<tr class="even">
+<td><code>prettycode check PATH</code></td>
+<td>Checks Python or R syntax; never runs your script.</td>
+<td style="text-align: right;">No</td>
+<td style="text-align: right;">No</td>
+</tr>
+<tr class="odd">
+<td><code>prettycode polish PATH --model MODEL_ID</code></td>
+<td>Requests one edited version, validates it, prints a diff, and saves
+a preview if accepted.</td>
+<td style="text-align: right;"><strong>Yes</strong></td>
+<td style="text-align: right;"><strong>No, by default</strong></td>
+</tr>
+<tr class="even">
+<td><code>prettycode apply PATH</code></td>
+<td>Applies an existing valid, still-current saved proposal.</td>
+<td style="text-align: right;">No</td>
+<td style="text-align: right;"><strong>Yes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Suppose you have a Python file called <code>scripts/example.py</code>
+inside a separate RStudio or code project, say
+<code>~/Documents/GitHub/my-analysis</code>. You can run PrettyCode from
+any working directory after installation. Here, explicitly designate the
+<strong>other project</strong> as the authorized root:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode</span> list <span class="at">--root</span> ~/Documents/GitHub/my-analysis</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode</span> check scripts/example.py <span class="at">--root</span> ~/Documents/GitHub/my-analysis</span></code></pre></div>
+<p>Paths following commands are interpreted <strong>relative to
+<code>--root</code></strong>. You may alternatively run commands from
+the target project’s directory and omit <code>--root</code>, assuming
+PrettyCode was installed in your active environment. The protocols are
+bundled with PrettyCode at installation; the target project does not
+need its own copy of those protocols.</p>
+<p><strong>Paid step — only when you intentionally choose to use the
+OpenAI API:</strong> first configure a valid API key securely in your
+environment and select a model ID your account supports. On macOS
+Terminal or Windows Git Bash, a temporary environment variable uses
+<code>export OPENAI_API_KEY=...</code>; on Windows PowerShell, use
+<code>$env:OPENAI_API_KEY = "..."</code>; avoid pasting or storing a
+real key in code, README files, screenshots, or Git. Setting a key alone
+does not send a request.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode</span> polish scripts/example.py <span class="at">--root</span> ~/Documents/GitHub/my-analysis <span class="at">--model</span> YOUR_MODEL_ID</span></code></pre></div>
+<p>Before contacting the model, PrettyCode reports one planned API
+request and an <strong>approximate input-token count</strong>. It does
+<strong>not</strong> provide a guaranteed total price, and it does not
+ask for an interactive final confirmation. <strong>Running this command
+is your authorization to make the request.</strong> The default behavior
+is to preview; review the printed diff and the script itself before
+accepting.</p>
+<p>If you like the result:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode</span> apply scripts/example.py <span class="at">--root</span> ~/Documents/GitHub/my-analysis</span></code></pre></div>
+<p>This uses the saved preview and costs <strong>no new model
+request</strong>. It also refuses to replace the script if that script’s
+contents have changed since the preview. If you do not like the
+proposal, simply do not apply it. You may delete its saved JSON from the
+target root’s <code>.prettycode-proposals/</code> directory when no
+longer needed.</p>
+<p><strong>Avoid initially:</strong>
+<code>prettycode polish ... --apply</code> requests and immediately
+writes the accepted suggestion. It does print the diff, but you do not
+get a separate human approval step between seeing the diff and the
+write. Prefer preview and separate <code>apply</code>.</p>
+<p><strong>R usage:</strong> The same CLI commands accept
+<code>.R</code> and <code>.r</code> files, provided <code>Rscript</code>
+is installed and discoverable. Make sure to review the diff especially
+carefully because there is no automatic R token-equivalence guard.</p>
+<h3 id="route-b-the-codex-skill-when-editing-inside-codex">Route B — The
+Codex Skill (when editing inside Codex)</h3>
+<p>For a first read-only exercise, ask Codex: “Use the PrettyCode Skill
+to propose documentation improvements for
+<code>examples/example.py</code> without editing it or using MCP.”</p>
+<p>The file <code>.agents/skills/prettycode/SKILL.md</code> is a short
+set of instructions for a Codex-capable environment that recognizes
+project skills. It tells Codex to read the appropriate authoritative
+protocol <strong>inside the Skill</strong>, at
+<code>references/pretty-python.md</code> or
+<code>references/pretty-r.md</code>, and preserve executable
+behavior.</p>
+<p>Install the Skill <strong>once per user</strong> by copying the
+entire <code>.agents/skills/prettycode/</code> directory (including
+<code>references/</code>) from the PrettyCode repository into
+<code>~/.agents/skills/prettycode/</code>. You can then use it across
+projects without copying PrettyCode into each one. From the PrettyCode
+repository root:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Terminal</th>
+<th>One-time installation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Windows PowerShell</td>
+<td><code>New-Item -ItemType Directory -Force "$HOME/.agents/skills"; Copy-Item -Recurse -Force .agents/skills/prettycode "$HOME/.agents/skills/"</code></td>
+</tr>
+<tr class="even">
+<td>macOS Terminal</td>
+<td><code>mkdir -p ~/.agents/skills &amp;&amp; cp -R .agents/skills/prettycode ~/.agents/skills/</code></td>
+</tr>
+</tbody>
+</table>
+<p>If a prior copy exists, remove that <em>personal Skill copy</em>
+before reinstalling to avoid leftover files. Restart Codex if needed.
+Other people can copy just this folder from the public repository
+without installing the CLI. The normal workflow is <strong>open your
+target project in Codex → invoke PrettyCode for one R/Python file →
+review its diff → authorize writes</strong>.</p>
+<p>The Skill can work using Codex’s ordinary file-editing tools. When an
+MCP connection is configured, Codex can use its tools to inspect and
+apply a proposal while following the Skill’s instructions. MCP does not
+automatically enforce those instructions. The MCP connection is
+<em>not</em> needed merely to use the Skill, and you should not have the
+Skill call the standalone paid API unnecessarily. Codex access or
+subscription may have separate limits or costs.</p>
+<p><strong>Important:</strong> The Skill instructions and the CLI share
+an editing goal, but Codex is not automatically running the CLI’s exact
+token guard when it uses ordinary file tools. Ask for the diff and
+validation report; use version control and your own judgment before
+accepting changes.</p>
+<h3 id="route-c-the-optional-mcp-server-for-compatible-ai-clients">Route
+C — The optional MCP server (for compatible AI clients)</h3>
+<p>MCP is a tool bridge and a distinct third interface; it is
+<strong>not</strong> a second editing model. For example, Codex can
+follow the PrettyCode Skill and call MCP tools, while another compatible
+AI client can use MCP on its own. The client is responsible for
+generating proposed edits. PrettyCode’s MCP server exposes five tools
+that a compatible client may call:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>MCP tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>list_code_files</code></td>
+<td>List R/Python files within the configured project root.</td>
+</tr>
+<tr class="even">
+<td><code>read_code_file</code></td>
+<td>Read one permitted source file.</td>
+</tr>
+<tr class="odd">
+<td><code>validate_code_file</code></td>
+<td>Perform a syntax check on a permitted source file.</td>
+</tr>
+<tr class="even">
+<td><code>inspect_proposal</code></td>
+<td>Validate a proposed complete script and return a diff without
+writing.</td>
+</tr>
+<tr class="odd">
+<td><code>apply_proposal</code></td>
+<td>Write a proposed script, guarded by validation and by checking that
+the original file has not changed.</td>
+</tr>
+</tbody>
+</table>
+<p>To start the server after installing the MCP extra (<code>mcp</code>
+version 2.x):</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prettycode-mcp</span></span></code></pre></div>
+<p><strong>Important difference:</strong> Unlike the CLI’s
+<code>--root</code> flag, this MCP server sets its authorized root to
+the <strong>current working directory at the moment it starts</strong>.
+Configure the AI client to launch <code>prettycode-mcp</code> with that
+directory as its working directory, using the Python environment where
+the optional MCP dependency is installed. Optional MCP client settings
+belong to each user/client; PrettyCode does not require a project-level
+<code>.codex/config.toml</code>. Restart the AI client after installing
+or updating the server so it reconnects and discovers its tools.</p>
+<p>For a first read-only MCP exercise, ask your connected client: “Use
+PrettyCode MCP to validate <code>examples/example.py</code> and list the
+available tools. Do not modify files.” This confirms tool discovery and
+communication, not just local installation.</p>
+<p>MCP communication uses <strong>stdio</strong>, meaning the client
+communicates with the server through its standard input and output
+streams rather than through a website. Running the command directly in
+an ordinary terminal does <strong>not</strong> provide a user-friendly
+interactive chat; it normally waits for an MCP client.</p>
+<p>The MCP tools do not make model calls or automatically load the Codex
+Skill and its language protocols. Your chosen client may use an AI model
+to write the proposal it passes to <code>inspect_proposal</code>;
+without the Skill, supply appropriate editing instructions in that
+client. The <code>apply_proposal</code> tool can write when invoked:
+keep write permissions under your control, and inspect changes before
+use.</p>
+<h2 id="safeguardsand-what-they-do-not-guarantee">7. Safeguards—and what
+they do NOT guarantee</h2>
+<p>PrettyCode is deliberately conservative:</p>
+<ul>
+<li>It accepts only existing <code>.py</code>, <code>.R</code>, or
+<code>.r</code> files within the authorized project root through its
+guarded file operations. Its discovery excludes common environment/cache
+folders and any folder named <code>old</code>.</li>
+<li>It checks syntax without executing the target script. Python uses
+Python’s parser; R uses <code>Rscript</code> to parse without
+evaluation.</li>
+<li>For <strong>Python</strong>, it also rejects a proposal if its
+meaningful code tokens differ. It is intended to preserve variables,
+executable statements, strings, and other code tokens while allowing
+comments and layout changes.</li>
+<li>It shows a diff before the normal CLI apply step. It checks that the
+original file remains unchanged before writing to avoid accidentally
+overwriting subsequent work.</li>
+<li>The standalone CLI makes <strong>at most one new model request per
+<code>polish</code> invocation</strong> and performs no automatic
+retries.</li>
+</ul>
+<p>These safeguards have limits. <strong>Passing validation does not
+prove identical behavior</strong>, especially with R. A syntax-valid
+script can still be logically wrong; a token-preserving Python edit can
+still deserve human scrutiny. PrettyCode does not run unit tests of your
+target project, execute your scripts, confirm output equality, or
+silently repair bugs.</p>
+<p>Before applying to valuable work, commit your current project in Git
+or make a backup. Afterward, inspect the diff, run your normal project
+tests or workflow yourself, and compare outputs when the results
+matter.</p>
+<h2 id="troubleshooting-common-beginner-problems">8. Troubleshooting
+common beginner problems</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>Likely explanation and next step</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>prettycode: command not found</code></td>
+<td>Activate the virtual environment and install the package with
+<code>python -m pip install -e '.[agent]'</code> (for polishing) or
+<code>python -m pip install -e .</code> (for free commands). Check that
+you are using the same terminal environment.</td>
+</tr>
+<tr class="even">
+<td><code>No R/Python files found</code></td>
+<td>Check your current folder (<code>pwd</code>) or supply
+<code>--root</code> for the folder containing your scripts.
+<code>list</code> will not search outside that root.</td>
+</tr>
+<tr class="odd">
+<td><code>Target must be an existing R/Python file within the project root</code></td>
+<td>Check the spelling, extension, and relationship between the target
+path and <code>--root</code>. Paths outside the root are intentionally
+rejected.</td>
+</tr>
+<tr class="even">
+<td><code>Rscript not on PATH</code></td>
+<td>Install R and configure your operating system so the
+<code>Rscript</code> command is available. Python checking works without
+R.</td>
+</tr>
+<tr class="odd">
+<td><code>OPENAI_API_KEY must be set</code></td>
+<td>The paid CLI feature needs a valid API key available in the
+environment. Free <code>list</code>/<code>check</code> do not need
+one.</td>
+</tr>
+<tr class="even">
+<td><code>--model is required</code></td>
+<td>Specify a supported OpenAI model ID when intentionally calling
+<code>polish</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>Python executable tokens differ</code></td>
+<td>The model suggested changes broader than PrettyCode permits. The
+proposal is rejected. Review manually rather than bypassing the
+safeguard blindly.</td>
+</tr>
+<tr class="even">
+<td><code>No changes proposed</code></td>
+<td>The model returned exactly the original text; no preview is saved.
+This is acceptable if the script already meets your needs.</td>
+</tr>
+<tr class="odd">
+<td><code>No saved proposal</code></td>
+<td>Run a successful <code>polish</code> preview first, for that exact
+file and root.</td>
+</tr>
+<tr class="even">
+<td><code>File changed since inspection</code></td>
+<td>You or another tool modified the source after the preview. Review
+the latest version and generate a new proposal if still needed.</td>
+</tr>
+<tr class="odd">
+<td>The MCP command appears to hang</td>
+<td>MCP expects a compatible client over stdio; it is not a
+human-oriented terminal app. Also check the folder from which it was
+launched.</td>
+</tr>
+<tr class="even">
+<td>R code passes syntax but looks substantively different</td>
+<td>Do not apply it. R lacks PrettyCode’s Python token guard; manual
+diff review is essential.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-to-read-or-editand-what-to-leave-alone">9. What to read or
+edit—and what to leave alone</h2>
+<ul>
+<li><strong>Start with this guide</strong>, then consult
+<code>README.md</code> for the compact technical reference.</li>
+<li><strong>Read
+<code>.agents/skills/prettycode/references/</code></strong> to see the
+one authoritative editing protocol for each language. The standalone CLI
+bundles these exact versions at installation; runtime GitHub downloads
+are not used.</li>
+<li><strong>Read
+<code>.agents/skills/prettycode/SKILL.md</code></strong> if you use
+Codex. It explains the Skill’s editing constraints.</li>
+<li><strong>Read <code>prettycode/cli.py</code></strong> only when you
+want to understand the CLI implementation. <strong>Read
+<code>prettycode/core/__init__.py</code></strong> for the shared safety
+checks and <strong><code>prettycode/mcp/__init__.py</code></strong> for
+MCP-specific tooling.</li>
+<li><strong>Use <code>tests/test_core.py</code></strong> when changing
+PrettyCode itself and wanting to catch regressions in the selected
+behaviors it tests.</li>
+<li><strong>Do not routinely edit</strong> <code>.venv/</code>, cached
+Python folders, or <code>.prettycode-proposals/*.json</code>. In
+particular, proposal JSON is working data, not an editing
+interface.</li>
+</ul>
+<h3 id="one-important-distinction">One important distinction</h3>
+<p><strong>Using PrettyCode to polish your own script</strong> is
+different from <strong>developing PrettyCode itself</strong>. For
+ordinary usage, work with your script, its diff, and the application
+commands; you generally do <strong>not</strong> need to change anything
+inside <code>prettycode/</code>. If you later extend the tool, use the
+tests, edit its source deliberately, and verify that safeguards still
+behave as expected.</p>
+<h2 id="a-sensible-first-exercise-no-charges">10. A sensible first
+exercise (no charges)</h2>
+<p>Create a disposable Python file in a separate test folder or inside a
+throwaway project:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span><span class="dv">1</span> <span class="co"># a value</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<p>Then, from your activated environment, try
+<code>prettycode list</code> and <code>prettycode check</code> with the
+correct <code>--root</code> and path. Confirm that you understand which
+folder is authorized and that <code>check</code> <strong>does
+not</strong> rewrite the file. If you decide to try model-assisted
+<code>polish</code> afterward, do so only after reviewing the cost
+implications and preparing a Git commit or backup. Start with
+<strong>one small, non-sensitive script</strong>, inspect the proposal,
+and apply it separately only if acceptable.</p>
+<p><strong>The guiding principle:</strong> PrettyCode is a controlled
+readability assistant. You—not the model—decide whether an edit should
+become part of your project.</p>
+</body>
+</html>

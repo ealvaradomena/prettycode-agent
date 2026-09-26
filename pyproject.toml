@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prettycode"
+version = "1.0.0"
+description = "Conservative documentation and formatting for R and Python source"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+agent = ["openai>=1.0"]
+mcp = ["mcp>=2.2,<3"]
+test = ["pytest>=8"]
+
+[project.scripts]
+prettycode = "prettycode.cli:main"
+prettycode-mcp = "prettycode.mcp:main"
+
+[tool.setuptools.packages.find]
+include = ["prettycode*"]
+
+# Ship the same authoritative protocols used by the standalone Codex Skill.
+[tool.setuptools.data-files]
+"share/prettycode/protocols" = [
+  ".agents/skills/prettycode/references/pretty-python.md",
+  ".agents/skills/prettycode/references/pretty-r.md",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
