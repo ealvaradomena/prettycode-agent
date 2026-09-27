@@ -29,12 +29,18 @@ def propose(source: str, instructions: str, name: str, model: str) -> str:
     response = OpenAI().responses.create(
         model=model,
         instructions=("You edit exactly one source file. Return ONLY the complete revised source text, "
-                      "without Markdown fences, commentary, or extra files. Improve comments and "
-                      "formatting without changing identifiers, literals, executable operations, "
-                      "API calls, imports, logic, side effects, or behavior. "
-                      "Do not invent contextual information. When unsure, leave it unchanged. "
-                      "Python: preserve all executable tokens including string literals; "
-                      "do not add or change docstrings. Follow the language protocol where safe.\n\n" + instructions),
+                      "without Markdown fences, commentary, or extra files. The language protocol "
+                      "below governs documentation, organization, and formatting: apply it "
+                      "throughout the script, including within functions, loops, and branches. "
+                      "Add useful internal comments and function documentation, including "
+                      "argument descriptions where relevant; Python docstrings are permitted "
+                      "as described by its protocol. You may reformat and organize the source "
+                      "as the protocol permits, but must preserve computational operations, "
+                      "identifiers, non-docstring literals, imports, APIs, side effects, and "
+                      "behavior. Follow the language protocol for any permitted namespace edits; "
+                      "Do not invent unsupported context or silently fix bugs. "
+                      "Do not treat behavioral preservation as a reason to omit safe "
+                      "documentation or formatting.\n\n" + instructions),
         input=f"FILENAME: {name}\n\nSOURCE:\n{source}",
     )
     return response.output_text

@@ -52,21 +52,53 @@ def validate(name: str, source: str) -> tuple[bool, str]:
 
 
 def python_tokens_unchanged(before: str, after: str) -> bool:
-    """A narrow guard: Python executable tokens, including string literals, unchanged.
+    """Protect Python operations while permitting docstrings and safe grouping.
 
-    Ignores comments, layout and indent widths. Does not prove runtime equivalence.
+    Docstrings are the sole literal exception; any parenthesis-only changes
+    must also preserve the parsed program structure (apart from docstrings).
     """
-    def tokens(text: str) -> list[tuple[int, str]]:
-        result = []
-        for t in tokenize.generate_tokens(io.StringIO(text).readline):
-            if t.type in {tokenize.COMMENT, tokenize.NL, tokenize.NEWLINE,
-                          tokenize.ENCODING, tokenize.ENDMARKER}:
+    def normalized(source: str):
+        tree = ast.parse(source)
+        blocks = (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)
+        docstrings = []
+        for node in ast.walk(tree):
+            if (isinstance(node, blocks) and node.body and
+                    isinstance(node.body[0], ast.Expr) and
+                    isinstance(node.body[0].value, ast.Constant) and
+                    isinstance(node.body[0].value.value, str)):
+                docstrings.append(node.body[0])
+
+        tokens = []
+        for token in tokenize.generate_tokens(io.StringIO(source).readline):
+            if token.type in {tokenize.COMMENT, tokenize.NL, tokenize.NEWLINE,
+                              tokenize.ENCODING, tokenize.ENDMARKER}:
                 continue
-            result.append((t.type, "" if t.type in {tokenize.INDENT, tokenize.DEDENT} else t.string))
-        return result
+            if token.type == tokenize.STRING and any(
+                (node.lineno, node.col_offset) <= token.start and
+                token.end <= (node.end_lineno, node.end_col_offset)
+                for node in docstrings
+            ):
+                continue
+            tokens.append((token.type, "" if token.type in {
+                tokenize.INDENT, tokenize.DEDENT} else token.string))
+
+        for node in ast.walk(tree):
+            if isinstance(node, blocks) and node.body and node.body[0] in docstrings:
+                node.body.pop(0)
+        return tokens, ast.dump(tree, include_attributes=False)
+
     try:
-        return tokens(before) == tokens(after)
-    except (tokenize.TokenError, IndentationError):
+        before_tokens, before_tree = normalized(before)
+        after_tokens, after_tree = normalized(after)
+        if before_tree != after_tree:
+            return False
+        if before_tokens == after_tokens:
+            return True
+        # Only grouping may differ; never substitute an operation or literal.
+        def without_parentheses(tokens):
+            return [t for t in tokens if t not in {(tokenize.OP, "("), (tokenize.OP, ")")}]
+        return without_parentheses(before_tokens) == without_parentheses(after_tokens)
+    except (SyntaxError, ValueError, tokenize.TokenError, IndentationError):
         return False
 
 

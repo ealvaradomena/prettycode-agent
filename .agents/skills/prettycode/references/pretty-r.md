@@ -52,7 +52,7 @@ Organize scripts into meaningful numbered sections when useful, using exactly th
 # ////////////////////////////////////////////////////
 #
 #
-# 1. Load Project Bootstrap ----
+# 1. Prepare Data ----
 #
 #
 # ////////////////////////////////////////////////////
@@ -63,6 +63,8 @@ Number sections sequentially.
 Use the `----` suffix so RStudio recognizes the headings as navigable sections.
 
 Sections must correspond to meaningful stages of the script rather than arbitrary code chunks.
+Adapt the example heading to the actual operation; never copy an illustrative title such as
+`Load Project Bootstrap` unless the script really performs that operation.
 
 # Code-Level Documentation
 
@@ -126,6 +128,30 @@ Use bullets where appropriate:
 
 Avoid decorative prose and unnecessary explanation.
 
+# Explicit Package Namespaces
+
+Use `package::function()` for functions from additional packages when the
+original function is unambiguously identifiable and qualification will call
+the same function. This is an authorized formatting change under the Core
+Principle, not permission to change which function runs.
+
+For example, when a script loads `ggplot2` and uses its ordinary plotting
+functions, write `ggplot2::ggplot()`, `ggplot2::aes()`,
+`ggplot2::geom_point()`, `ggplot2::labs()`, and
+`ggplot2::theme_minimal()`. Similarly, use `dplyr::filter()` when the call
+unambiguously resolves to that function.
+
+Leave ordinary functions from base R and its default packages unqualified:
+`na.omit()`, `aggregate()`, `mean()`, and `lm()` are examples. Do not guess
+origins or qualify locally defined, masked, or otherwise ambiguous calls.
+Preserve all existing `library()` calls and their order.
+
+Namespace qualification changes only how an existing function is referenced.
+It does not authorize adding intermediate objects, splitting or combining
+operations, or otherwise restructuring computations. In particular, preserve
+a direct `print(aggregate(...))` operation as one operation; formatting its
+nested calls over multiple lines is permitted.
+
 # Line Length and Function Calls
 
 Avoid long or visually dense lines.
@@ -170,6 +196,8 @@ paste(
 ```
 
 Do not mechanically split very short calls that are already clear.
+Do not leave long nested expressions compressed when multiline formatting
+can improve readability without changing the computation.
 
 # Blank Lines
 

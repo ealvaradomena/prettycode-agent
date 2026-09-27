@@ -644,6 +644,9 @@ output.
 Do not add the marker mechanically when the script has no meaningful
 terminal output.
 
+Place the marker after any explanatory comments, directly above the final
+output statement, with no intervening comments or operations.
+
 Do not move an output operation merely to make it the final line.
 
 ## Validation
