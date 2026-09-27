@@ -409,10 +409,10 @@ edits.</td>
 <h2 id="how-the-working-directory-is-organized">3. How the working
 directory is organized</h2>
 <p>Open the PrettyCode repository folder (for example,
-<code>prettycode/</code>). Its <code>prettycode/</code> subfolder
+<code>prettycode-agent/</code>). Its <code>prettycode/</code> subfolder
 contains the Python application; <code>.agents/skills/prettycode/</code>
 contains the independently installable Codex Skill.</p>
-<pre class="text"><code>prettycode/                            Project root
+<pre class="text"><code>prettycode-agent/                      Project root
 |-- README.md                          Quick start
 |-- PRETTYCODE_BEGINNERS_GUIDE.md       This guide
 |-- pyproject.toml                     Python package and dependencies
@@ -432,7 +432,7 @@ contains the independently installable Codex Skill.</p>
 |       `-- pretty-r.md
 `-- tests/test_core.py                  Local checks</code></pre>
 <p><strong>Why are some folders named <code>prettycode</code>?</strong>
-The <strong>outer folder</strong> (<code>prettycode</code>) is the
+The <strong>outer folder</strong> (<code>prettycode-agent</code>) is the
 complete project, whereas the <strong>inner</strong>
 <code>prettycode/</code> is its importable Python application. A Codex
 Skill also happens to have a <code>prettycode/</code> folder under
@@ -523,7 +523,7 @@ folder</h3>
 Navigate to your PrettyCode repository (replace the example path with
 your own):</p>
 <div class="sourceCode" id="cb3"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/GitHub/prettycode</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/GitHub/prettycode-agent</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code></pre></div>
 <p>Confirm that <code>README.md</code>, <code>pyproject.toml</code>,
 <code>prettycode/</code>, and <code>.agents/skills/prettycode/</code>
@@ -717,10 +717,14 @@ repository root:</p>
 </thead>
 <tbody>
 <tr class="odd">
+<td>Windows Git Bash</td>
+<td><code>mkdir -p ~/.agents/skills &amp;&amp; cp -R .agents/skills/prettycode ~/.agents/skills/</code></td>
+</tr>
+<tr class="even">
 <td>Windows PowerShell</td>
 <td><code>New-Item -ItemType Directory -Force "$HOME/.agents/skills"; Copy-Item -Recurse -Force .agents/skills/prettycode "$HOME/.agents/skills/"</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>macOS Terminal</td>
 <td><code>mkdir -p ~/.agents/skills &amp;&amp; cp -R .agents/skills/prettycode ~/.agents/skills/</code></td>
 </tr>

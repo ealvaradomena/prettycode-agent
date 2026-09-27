@@ -62,6 +62,7 @@ R syntax checks also require an installed `Rscript` available on your `PATH`. **
 
 Copy the **entire** `.agents/skills/prettycode/` folder (including `references/`) into your personal `~/.agents/skills/prettycode/` location:
 
+- Windows Git Bash: `mkdir -p ~/.agents/skills && cp -R .agents/skills/prettycode ~/.agents/skills/`
 - Windows PowerShell: `New-Item -ItemType Directory -Force "$HOME/.agents/skills"; Copy-Item -Recurse -Force .agents/skills/prettycode "$HOME/.agents/skills/"`
 - macOS: `mkdir -p ~/.agents/skills && cp -R .agents/skills/prettycode ~/.agents/skills/`
 

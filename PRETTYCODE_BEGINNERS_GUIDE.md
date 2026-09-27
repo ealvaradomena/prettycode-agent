@@ -45,10 +45,10 @@ The project offers **three interfaces** (three ways to access closely related fu
 
 ## 3. How the working directory is organized
 
-Open the PrettyCode repository folder (for example, `prettycode/`). Its `prettycode/` subfolder contains the Python application; `.agents/skills/prettycode/` contains the independently installable Codex Skill.
+Open the PrettyCode repository folder (for example, `prettycode-agent/`). Its `prettycode/` subfolder contains the Python application; `.agents/skills/prettycode/` contains the independently installable Codex Skill.
 
 ```text
-prettycode/                            Project root
+prettycode-agent/                      Project root
 |-- README.md                          Quick start
 |-- PRETTYCODE_BEGINNERS_GUIDE.md       This guide
 |-- pyproject.toml                     Python package and dependencies
@@ -69,7 +69,7 @@ prettycode/                            Project root
 `-- tests/test_core.py                  Local checks
 ```
 
-**Why are some folders named `prettycode`?** The **outer folder** (`prettycode`) is the complete project, whereas the **inner** `prettycode/` is its importable Python application. A Codex Skill also happens to have a `prettycode/` folder under `.agents/skills/`; that folder contains instructions, not the application.
+**Why are some folders named `prettycode`?** The **outer folder** (`prettycode-agent`) is the complete project, whereas the **inner** `prettycode/` is its importable Python application. A Codex Skill also happens to have a `prettycode/` folder under `.agents/skills/`; that folder contains instructions, not the application.
 
 **What are the leading dots?** On many systems, folders beginning with a dot, such as `.agents/`, `.venv/`, and `.prettycode-proposals/`, are treated as hidden. Enable hidden-file display in your file explorer if you cannot see them.
 
@@ -136,7 +136,7 @@ You need **Python 3.11 or newer**. The Codex Skill needs **no Python installatio
 Open Git Bash or PowerShell on Windows, or Terminal on macOS. Navigate to your PrettyCode repository (replace the example path with your own):
 
 ```bash
-cd ~/Documents/GitHub/prettycode
+cd ~/Documents/GitHub/prettycode-agent
 pwd
 ```
 
@@ -234,6 +234,7 @@ Install the Skill **once per user** by copying the entire `.agents/skills/pretty
 
 | Terminal | One-time installation |
 |---|---|
+| Windows Git Bash | `mkdir -p ~/.agents/skills && cp -R .agents/skills/prettycode ~/.agents/skills/` |
 | Windows PowerShell | `New-Item -ItemType Directory -Force "$HOME/.agents/skills"; Copy-Item -Recurse -Force .agents/skills/prettycode "$HOME/.agents/skills/"` |
 | macOS Terminal | `mkdir -p ~/.agents/skills && cp -R .agents/skills/prettycode ~/.agents/skills/` |
 
